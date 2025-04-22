@@ -43,7 +43,7 @@ public class PacienteController {
                 .body(pacienteService.findById(id));
     }
 
-    @GetMapping("/{correo}")
+    @GetMapping("/email/{correo}")
     public ResponseEntity<Paciente> getPacienteByCorreo(@PathVariable String correo) {
         return ResponseEntity
                 .status(HttpStatus.OK)
