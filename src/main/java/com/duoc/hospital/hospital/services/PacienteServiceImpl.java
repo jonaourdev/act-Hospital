@@ -5,6 +5,7 @@ import com.duoc.hospital.hospital.models.Paciente;
 import com.duoc.hospital.hospital.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,11 +14,13 @@ public class PacienteServiceImpl implements PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<Paciente> findAll() {
         return pacienteRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Paciente findById(Long id) {
         // Se genera metodo que permite realizar la busqueda de un usuario con el id, en caso de no encontrar un resul
@@ -27,6 +30,7 @@ public class PacienteServiceImpl implements PacienteService {
         );
     }
 
+    @Transactional
     @Override
     public Paciente save(Paciente paciente) {
         // Se realiza la validacion que el usuario con el RUT enviado no exista previamente en nuestra base de datos
@@ -40,6 +44,7 @@ public class PacienteServiceImpl implements PacienteService {
         return pacienteRepository.save(paciente);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         pacienteRepository.deleteById(id);
@@ -61,6 +66,7 @@ public class PacienteServiceImpl implements PacienteService {
         );
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Paciente findByCorreo(String correo) {
         return pacienteRepository.findByCorreo(correo).orElseThrow(
@@ -68,6 +74,7 @@ public class PacienteServiceImpl implements PacienteService {
         );
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Paciente findByRun(String run) {
         return pacienteRepository.findByRun(run).orElseThrow(
