@@ -32,14 +32,14 @@ public class MedicoController {
                 .body(medicoService.findByEspecialidEquals(especialidad));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Medico> findById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(medicoService.findById(id));
     }
 
-    @GetMapping("/{run}")
+    @GetMapping("/run/{run}")
     public ResponseEntity<Medico> findByRun(@PathVariable String run) {
         return ResponseEntity
                 .status(HttpStatus.OK)

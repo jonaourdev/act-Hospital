@@ -23,7 +23,7 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public List<Medico> findByEspecialidEquals(String especialidad) {
-        return medicoRepository.findByEspecialidEquals(especialidad);
+        return medicoRepository.findByEspecialidadEquals(especialidad);
     }
 
     @Override

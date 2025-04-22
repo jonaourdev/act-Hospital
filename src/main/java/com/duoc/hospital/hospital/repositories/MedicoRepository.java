@@ -10,8 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
-    // Metodo que permite obtener todos los medios por especialidad
-    List<Medico> findByEspecialidEquals(String especialidad);
+    List<Medico> findByEspecialidadEquals(String especialidad);
 
     Optional<Medico> findByRun(String run);
 
