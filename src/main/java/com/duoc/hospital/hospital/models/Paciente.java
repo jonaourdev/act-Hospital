@@ -45,4 +45,9 @@ public class Paciente {
     @Column(nullable = false, unique = true)
     private String correo;
 
+    // Con este codigo podemos decir que se agregen los campos a la tabla de createdAt y updatedAt
+    // Si bien en postmant no aparecerá como si fuera una estructura anidada estos pertenecran a la misma tabla
+    @Embedded
+    private Audit audit = new Audit();
+
 }
