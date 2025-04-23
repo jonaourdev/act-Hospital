@@ -1,5 +1,6 @@
 package com.duoc.hospital.hospital.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Entity -> Nos permite definir que esta tabla estará almacenada en la BD que se declara en el properties
@@ -82,4 +85,7 @@ public class Paciente {
     @Embedded
     private Audit audit = new Audit();
 
+    @JsonManagedReference("paciente-medico")
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Atencion> medicos = new ArrayList<>();
 }

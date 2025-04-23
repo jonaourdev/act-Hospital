@@ -1,5 +1,6 @@
 package com.duoc.hospital.hospital.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="medicos")
@@ -20,7 +24,7 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medico_id")
-    private Integer medicoId;
+    private Long medicoId;
 
     @Column(unique = true, nullable = false)
     @NotBlank(message = "El campo run no puede ser vacio")
@@ -41,6 +45,10 @@ public class Medico {
 
     @Embedded
     private Audit audit = new Audit();
+
+    @JsonManagedReference("medico-paciente")
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Atencion> pacientes = new ArrayList<>();
 
 
 }
