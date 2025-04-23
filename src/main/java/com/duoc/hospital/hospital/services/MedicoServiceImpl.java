@@ -22,11 +22,6 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public List<Medico> findByEspecialidEquals(String especialidad) {
-        return medicoRepository.findByEspecialidadEquals(especialidad);
-    }
-
-    @Override
     public Medico findById(Long id) {
         return medicoRepository.findById(id).orElseThrow(
                 () -> new MedicoException("El medico con id " + id + " no existe")
@@ -57,7 +52,6 @@ public class MedicoServiceImpl implements MedicoService {
     public Medico updateById(Long id, Medico medico) {
         return medicoRepository.findById(id).map(m->{
             m.setRun(medico.getRun());
-            m.setEspecialidad(medico.getEspecialidad());
             m.setJefeTurno(medico.getJefeTurno());
             m.setNombreCompleto(medico.getNombreCompleto());
             return medicoRepository.save(m);

@@ -25,21 +25,13 @@ public class MedicoController {
                 .body(medicoService.findAll());
     }
 
-    @GetMapping("/especialidad/{especialidad}")
-    public ResponseEntity<List<Medico>> findByEspecialidad(@PathVariable String especialidad) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(medicoService.findByEspecialidEquals(especialidad));
-    }
 
-    @GetMapping("/id/{id}")
     public ResponseEntity<Medico> findById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(medicoService.findById(id));
     }
 
-    @GetMapping("/run/{run}")
     public ResponseEntity<Medico> findByRun(@PathVariable String run) {
         return ResponseEntity
                 .status(HttpStatus.OK)

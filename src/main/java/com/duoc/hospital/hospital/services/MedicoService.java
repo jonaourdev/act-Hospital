@@ -7,7 +7,6 @@ import java.util.List;
 public interface MedicoService {
 
     List<Medico> findAll();
-    List<Medico> findByEspecialidEquals(String especialidad);
     Medico findById(Long id);
     Medico findByRun(String run);
     Medico save(Medico medico);
