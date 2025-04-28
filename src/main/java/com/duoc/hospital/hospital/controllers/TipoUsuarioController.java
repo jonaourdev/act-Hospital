@@ -38,4 +38,11 @@ public class TipoUsuarioController {
                 .status(HttpStatus.CREATED)
                 .body(tipoUsuarioService.save(tipoUsuario));
     }
+
+    @GetMapping("/{id}/costo-total")
+    public ResponseEntity<Integer> findByIdCostoTotal(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(tipoUsuarioService.getTotalByTipoUsuario(id));
+    }
 }
