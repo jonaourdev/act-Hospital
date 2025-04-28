@@ -1,6 +1,7 @@
 package com.duoc.hospital.hospital.services;
 
 import com.duoc.hospital.hospital.dtos.AtencionViewDTO;
+import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
 import com.duoc.hospital.hospital.exceptions.PacienteException;
 import com.duoc.hospital.hospital.models.Atencion;
 import com.duoc.hospital.hospital.models.Paciente;
@@ -87,18 +88,17 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public List<AtencionViewDTO> findByAtencionesByPacienteId(Long idPaciente) {
+    public List<AtencionViewPacienteDTO> findByAtencionesByPacienteId(Long idPaciente) {
         Paciente paciente = pacienteRepository.findById(idPaciente).orElseThrow(
                 () -> new PacienteException("Paciente con id "+idPaciente+" no encontrado")
         );
         return paciente.getAtenciones().stream().map(atencion -> {
-            return new AtencionViewDTO(
+            return new AtencionViewPacienteDTO(
                     atencion.getAtencionId(),
                     atencion.getHoraAtencion(),
                     atencion.getComentario(),
                     atencion.getCosto(),
-                    atencion.getMedico(),
-                    atencion.getPaciente()
+                    atencion.getMedico()
             );
         }).collect(Collectors.toList());
     }

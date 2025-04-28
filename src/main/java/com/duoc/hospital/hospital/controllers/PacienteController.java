@@ -1,6 +1,7 @@
 package com.duoc.hospital.hospital.controllers;
 
 import com.duoc.hospital.hospital.dtos.AtencionViewDTO;
+import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
 import com.duoc.hospital.hospital.models.Paciente;
 import com.duoc.hospital.hospital.services.PacienteService;
 import jakarta.validation.Valid;
@@ -74,7 +75,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}/atenciones")
-    public ResponseEntity<List<AtencionViewDTO>> getPacienteAtenciones(@PathVariable Long id) {
+    public ResponseEntity<List<AtencionViewPacienteDTO>> getPacienteAtenciones(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(pacienteService.findByAtencionesByPacienteId(id));
