@@ -25,13 +25,14 @@ public class MedicoController {
                 .body(medicoService.findAll());
     }
 
-
+    @GetMapping("/{id}")
     public ResponseEntity<Medico> findById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(medicoService.findById(id));
     }
 
+    @GetMapping("/rut/{run}")
     public ResponseEntity<Medico> findByRun(@PathVariable String run) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -53,7 +54,7 @@ public class MedicoController {
                 .body(medicoService.save(medico));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Medico> updateById(@PathVariable Long id, @Valid @RequestBody Medico medico){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
