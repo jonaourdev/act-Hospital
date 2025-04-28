@@ -1,5 +1,6 @@
 package com.duoc.hospital.hospital.services;
 
+import com.duoc.hospital.hospital.dtos.AtencionViewDTO;
 import com.duoc.hospital.hospital.models.Paciente;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface PacienteService {
     Paciente updateById(Long id, Paciente paciente);
     Paciente findByCorreo(String correo);
     Paciente findByRun(String run);
+    List<AtencionViewDTO> findByAtencionesByPacienteId(Long idPaciente);
+
 }
