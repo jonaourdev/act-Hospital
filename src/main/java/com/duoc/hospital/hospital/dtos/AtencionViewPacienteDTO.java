@@ -19,8 +19,7 @@ public class AtencionViewPacienteDTO {
     private String comentario;
     private String runMedico;
     private String nombreMedico;
-    private String runPaciente;
-    private String nombrePaciente;
+
 
     public AtencionViewPacienteDTO(
             Long atencionId,

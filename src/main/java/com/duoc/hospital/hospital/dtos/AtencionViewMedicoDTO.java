@@ -17,8 +17,6 @@ public class AtencionViewMedicoDTO {
     private LocalDateTime horaAtencion;
     private Integer costo;
     private String comentario;
-    private String runMedico;
-    private String nombreMedico;
     private String runPaciente;
     private String nombrePaciente;
 
