@@ -15,6 +15,7 @@ import lombok.ToString;
 public class FichaPaciente {
 
     @Id
+    @Column(name = "ficha_paciente_id")
     private Long fichaPacienteId;
 
     @Column(name = "datos_personales_1",nullable = false)

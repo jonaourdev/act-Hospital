@@ -69,6 +69,7 @@ public class PacienteServiceImpl implements PacienteService {
         pacienteEntity.setCorreo(paciente.getCorreo());
         pacienteEntity.setNombres(paciente.getNombres());
         pacienteEntity.setApellidos(paciente.getApellidos());
+        pacienteEntity.setFechaNacimiento(paciente.getFechaNacimiento());
         pacienteEntity.setTipoUsuario(tipoUsuario);
         return pacienteRepository.save(pacienteEntity);
     }

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,27 +59,19 @@ public class Paciente {
     @Column(name = "paciente_id")
     private Long pacienteId;
 
-
     @Column(unique = true, nullable = false)
-    @NotBlank(message = "El campo rut no puede ser vacio")
-    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El fomato del dni debe ser XXXXXXXX-X")
     private String run;
 
     @Column(nullable = false)
-    @NotBlank(message = "El campo nombres no puede ser vacio")
     private String nombres;
 
     @Column(nullable = false)
-    @NotBlank(message = "El campo apellidos no puede ser vacio")
     private String apellidos;
 
     @Column(name ="fecha_nacimiento")
-    @NotNull(message = "El campo fecha de nacimiento no puede ser vacio")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "El campo correo no puede ser vacio")
-    @Email(message = "El correo debe tener un formato de correo")
     private String correo;
 
     // Con este codigo podemos decir que se agregen los campos a la tabla de createdAt y updatedAt
@@ -95,7 +88,7 @@ public class Paciente {
     @JoinColumn(name="tipo_usuario_id", nullable = false)
     private TipoUsuario tipoUsuario;
 
-    @OneToOne(mappedBy = "paciente")
-    FichaPaciente fichaPaciente;
+    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+        FichaPaciente fichaPaciente;
 
 }

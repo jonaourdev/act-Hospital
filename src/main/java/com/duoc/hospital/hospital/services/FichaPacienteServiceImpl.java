@@ -37,16 +37,21 @@ public class FichaPacienteServiceImpl implements FichaPacienteService {
     @Transactional
     @Override
     public FichaPaciente save(FichaPacienteCreationDTO fichaPaciente) {
-        Paciente paciente = pacienteRepository.findById(fichaPaciente.getPacienteId()).orElseThrow(
-                () -> new PacienteException("El paciente con id " + fichaPaciente.getPacienteId() + " no existe")
-        );
+
         FichaPaciente fichaPacienteEntity = new FichaPaciente();
         fichaPacienteEntity.setDatosPersonales1(fichaPaciente.getDatosPersonales1());
         fichaPacienteEntity.setDatosPersonales2(fichaPaciente.getDatosPersonales2());
         fichaPacienteEntity.setDatosPersonales3(fichaPaciente.getDatosPersonales3());
         fichaPacienteEntity.setDatosPersonales4(fichaPaciente.getDatosPersonales4());
         fichaPacienteEntity.setDatosPersonales5(fichaPaciente.getDatosPersonales5());
+
+        Paciente paciente = pacienteRepository.findById(fichaPaciente.getPacienteId()).orElseThrow(
+                () -> new PacienteException("El paciente con id " + fichaPaciente.getPacienteId() + " no existe")
+        );
+
+        System.out.println(paciente.getRun());
         fichaPacienteEntity.setPaciente(paciente);
+
         return fichaPacienteRepository.save(fichaPacienteEntity);
 
     }

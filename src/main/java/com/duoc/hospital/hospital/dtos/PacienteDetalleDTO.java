@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class PacienteDetalleDTO {
     private String run;
     private String nombreCompleto;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private String correo;
     private String datosPersonales1;
     private String datosPersonales2;
