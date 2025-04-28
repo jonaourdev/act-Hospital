@@ -47,4 +47,8 @@ public class Medico {
     @JsonManagedReference("medico-especialidad")
     List<RegistroEspecialidad>  especialidades = new ArrayList<>();
 
+    @OneToMany(mappedBy = "medico",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("medico-paciente")
+    List<Atencion> atenciones = new ArrayList<>();
+
 }

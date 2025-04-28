@@ -87,5 +87,5 @@ public class Paciente {
 
     @JsonManagedReference("paciente-medico")
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Atencion> medicos = new ArrayList<>();
+    List<Atencion> atenciones = new ArrayList<>();
 }
