@@ -71,7 +71,7 @@ public class MedicoServiceImpl implements MedicoService {
         Medico medico = this.findById(id);
         List<Atencion> atenciones = medico.getAtenciones();
         return atenciones.stream().map(atencion -> {
-            return new AtencionViewPacienteDTO(
+            return new AtencionViewMedicoDTO(
                     atencion.getHoraAtencion(),
                     atencion.getCosto(),
                     atencion.getComentario(),

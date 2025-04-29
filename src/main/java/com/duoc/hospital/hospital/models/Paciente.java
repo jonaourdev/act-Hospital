@@ -1,5 +1,6 @@
 package com.duoc.hospital.hospital.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -88,4 +89,9 @@ public class Paciente {
     @JsonManagedReference("paciente-medico")
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Atencion> atenciones = new ArrayList<>();
+
+    @ManyToOne    //???????
+    @JoinColumn(name = "tipo_usuario_id", nullable = false)
+    @JsonBackReference("tipo")
+    private TipoUsuario tipoUsuario;
 }
