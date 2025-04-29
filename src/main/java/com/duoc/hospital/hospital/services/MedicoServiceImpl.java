@@ -1,13 +1,18 @@
 package com.duoc.hospital.hospital.services;
 
+import com.duoc.hospital.hospital.dtos.AtencionViewMedicoDTO;
+import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
 import com.duoc.hospital.hospital.exceptions.MedicoException;
+import com.duoc.hospital.hospital.models.Atencion;
 import com.duoc.hospital.hospital.models.Medico;
+import com.duoc.hospital.hospital.models.Paciente;
 import com.duoc.hospital.hospital.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicoServiceImpl implements MedicoService {
@@ -58,5 +63,21 @@ public class MedicoServiceImpl implements MedicoService {
         }).orElseThrow(
                 () -> new MedicoException("El medico con id " + id + " no existe")
         );
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<AtencionViewMedicoDTO> findAtencionesById(Long id) {
+        Medico medico = this.findById(id);
+        List<Atencion> atenciones = medico.getAtenciones();
+        return atenciones.stream().map(atencion -> {
+            return new AtencionViewPacienteDTO(
+                    atencion.getHoraAtencion(),
+                    atencion.getCosto(),
+                    atencion.getComentario(),
+                    atencion.getPaciente().getRun(),
+                    atencion.getPaciente().getNombres()+" "+atencion.getPaciente().getApellidos()
+            );
+        }).collect(Collectors.toList());
     }
 }

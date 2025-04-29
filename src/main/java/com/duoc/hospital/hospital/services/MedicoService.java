@@ -1,5 +1,7 @@
 package com.duoc.hospital.hospital.services;
 
+import com.duoc.hospital.hospital.dtos.AtencionViewMedicoDTO;
+import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
 import com.duoc.hospital.hospital.models.Medico;
 
 import java.util.List;
@@ -12,5 +14,6 @@ public interface MedicoService {
     Medico save(Medico medico);
     void deleteById(Long id);
     Medico updateById(Long id, Medico medico);
+    List<AtencionViewMedicoDTO> findAtencionesById(Long id);
 
 }
