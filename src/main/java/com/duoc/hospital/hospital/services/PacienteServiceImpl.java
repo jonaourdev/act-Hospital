@@ -2,10 +2,14 @@ package com.duoc.hospital.hospital.services;
 
 import com.duoc.hospital.hospital.dtos.AtencionViewDTO;
 import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
+import com.duoc.hospital.hospital.dtos.PacienteCreacionDTO;
 import com.duoc.hospital.hospital.exceptions.PacienteException;
+import com.duoc.hospital.hospital.exceptions.TipoUsuarioException;
 import com.duoc.hospital.hospital.models.Atencion;
 import com.duoc.hospital.hospital.models.Paciente;
+import com.duoc.hospital.hospital.models.TipoUsuario;
 import com.duoc.hospital.hospital.repositories.PacienteRepository;
+import com.duoc.hospital.hospital.repositories.TipoUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,10 @@ import java.util.stream.Collectors;
 public class PacienteServiceImpl implements PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private TipoUsuarioRepository tipoUsuarioRepository;
+
 
     @Transactional(readOnly = true)
     @Override
@@ -34,9 +42,8 @@ public class PacienteServiceImpl implements PacienteService {
         );
     }
 
-    @Transactional
     @Override
-    public Paciente save(Paciente paciente) {
+    public Paciente save(PacienteCreacionDTO paciente) {
         // Se realiza la validacion que el usuario con el RUT enviado no exista previamente en nuestra base de datos
         if (pacienteRepository.findByRun(paciente.getRun()).isPresent()) {
             throw new PacienteException("Paciente con Run "+paciente.getRun()+" ya existente");
@@ -45,7 +52,20 @@ public class PacienteServiceImpl implements PacienteService {
         if (pacienteRepository.findByCorreo(paciente.getCorreo()).isPresent()) {
             throw new PacienteException("Paciente con Correo "+paciente.getCorreo()+" ya existente");
         }
-        return pacienteRepository.save(paciente);
+
+        TipoUsuario tipo = tipoUsuarioRepository.findById(paciente.getTipoUsuarioId()).orElseThrow(
+                ()-> new TipoUsuarioException("El tipo de usuario con id "+paciente.getTipoUsuarioId()+" no existe.")
+        );
+
+        Paciente pacienteNew=new Paciente();
+        pacienteNew.setRun(paciente.getRun());
+        pacienteNew.setNombres(paciente.getNombres());
+        pacienteNew.setApellidos(paciente.getApellidos());
+        pacienteNew.setCorreo(paciente.getCorreo());
+        pacienteNew.setFechaNacimiento(paciente.getFechaNacimiento());
+        pacienteNew.setTipoUsuario(tipo);
+
+        return pacienteRepository.save(pacienteNew);
     }
 
     @Transactional

@@ -8,5 +8,5 @@ public interface TipoUsuarioService {
 
     List<TipoUsuario> findAll();
     TipoUsuario save(TipoUsuario tipo);
-
+    Integer costoTotalAtenciones(Long id);
 }

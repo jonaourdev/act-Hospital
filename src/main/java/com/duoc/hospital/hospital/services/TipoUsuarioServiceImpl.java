@@ -1,6 +1,8 @@
 package com.duoc.hospital.hospital.services;
 
 import com.duoc.hospital.hospital.exceptions.TipoUsuarioException;
+import com.duoc.hospital.hospital.models.Atencion;
+import com.duoc.hospital.hospital.models.Paciente;
 import com.duoc.hospital.hospital.models.TipoUsuario;
 import com.duoc.hospital.hospital.repositories.TipoUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,21 @@ public class TipoUsuarioServiceImpl implements TipoUsuarioService{
         }
 
         return tipoUsuarioRepository.save(tipo);
+    }
+
+    @Override
+    public Integer costoTotalAtenciones(Long id) {
+        TipoUsuario tipoUsuario = tipoUsuarioRepository.findById(id).orElseThrow(
+                ()-> new TipoUsuarioException("El tipo de usuario con id "+id+" no existe.")
+        );
+        Integer total=0;
+        for(Paciente paciente: tipoUsuario.getPacientes()){
+            for (Atencion atencion: paciente.getAtenciones()){
+                total+=atencion.getCosto();
+            }
+
+        }
+        return total;
     }
 
 }
