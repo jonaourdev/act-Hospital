@@ -1,6 +1,9 @@
 package com.duoc.hospital.hospital.services;
 
+import com.duoc.hospital.hospital.dtos.AtencionViewDTO;
+import com.duoc.hospital.hospital.dtos.AtencionViewPacienteDTO;
 import com.duoc.hospital.hospital.exceptions.PacienteException;
+import com.duoc.hospital.hospital.models.Atencion;
 import com.duoc.hospital.hospital.models.Paciente;
 import com.duoc.hospital.hospital.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -80,5 +84,21 @@ public class PacienteServiceImpl implements PacienteService {
         return pacienteRepository.findByRun(run).orElseThrow(
                 () -> new PacienteException("Paciente con Run "+run+" no encontrado")
         );
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<AtencionViewPacienteDTO> findAtencionesById(Long id) {
+        Paciente paciente = this.findById(id);
+        List<Atencion> atenciones = paciente.getAtenciones();
+        return atenciones.stream().map(atencion -> {
+            return new AtencionViewPacienteDTO(
+                    atencion.getHoraAtencion(),
+                    atencion.getCosto(),
+                    atencion.getComentario(),
+                    atencion.getMedico().getRun(),
+                    atencion.getMedico().getNombreCompleto()
+            );
+        }).collect(Collectors.toList());
     }
 }
